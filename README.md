@@ -16,16 +16,19 @@ You will need to set the following info in /src/main/resources/application.prope
     spring.social.twitter.appSecret=<Your app secret from Twitter>
 
 
-To Execute:
-___________
+To compile:
 
-You can execute this as a Spring boot application.
+mvnw install
+
+To Execute:
+
+You can execute this as a Spring boot application in your local IDE.
+http://localhost:8080/
 
 
 Deploy to PCF:
-______________
 
- cf push
+cf push
  
  Note the manifest.yml
  

@@ -53,6 +53,20 @@ public class HelloController {
         			);
         }
         model.addAttribute("tweets", tweets);
+        
+        List<Tweet> mytweets = twitter.timelineOperations().getUserTimeline();
+        System.out.println("Tweets: "  + mytweets.toString() );
+        itr = mytweets.iterator();
+        while ( itr.hasNext() )
+        {
+        	Tweet mytweet = (Tweet) itr.next();
+        	
+        	System.out.println( "Tweet Text is : " +  mytweet.getText() 
+        			             + " by user : "   +  mytweet.getFromUser()
+        			             + " user Profile : " + mytweet.getUser()
+        			);
+        }
+        model.addAttribute("mytweets", mytweets);
     
         return "hello";
     }

@@ -6,6 +6,12 @@
 	<body>
 		<h3>Hello, <span th:text="${twitterProfile.name}">Some User</span>!</h3>
 		
+		<h4>Here are some my tweets retrieved:</h4>
+		
+		<ul>
+			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText()}">mytweet</li>
+		</ul>
+		
 		<h4>These are your friends:</h4>
 		
 		<ul>

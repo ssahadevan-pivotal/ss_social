@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HelloController {
 
-    private Twitter twitter;
+    
+	
+	private Twitter twitter;
 
     private ConnectionRepository connectionRepository;
 
@@ -27,10 +29,12 @@ public class HelloController {
     public HelloController(Twitter twitter, ConnectionRepository connectionRepository) {
         this.twitter = twitter;
         this.connectionRepository = connectionRepository;
+       
     }
 
     @RequestMapping(method=RequestMethod.GET)
     public String helloTwitter(Model model) {
+    	
         if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
             return "redirect:/connect/twitter";
         }
@@ -40,7 +44,7 @@ public class HelloController {
         model.addAttribute("friends", friends);
         
         // SS Code
-        List<Tweet> tweets = twitter.timelineOperations().getHomeTimeline();
+        List<Tweet> tweets = twitter.timelineOperations().getRetweetsOfMe();
         System.out.println("Tweets: "  + tweets.toString() );
         Iterator itr = tweets.iterator();
         while ( itr.hasNext() )
@@ -51,6 +55,7 @@ public class HelloController {
         			             + " by user : "   +  tweet.getFromUser()
         			             + " user Profile : " + tweet.getUser()
         			);
+          
         }
         model.addAttribute("tweets", tweets);
         

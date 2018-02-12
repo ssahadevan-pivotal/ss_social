@@ -6,10 +6,10 @@
 	<body>
 		<h3>Hello, <span th:text="${twitterProfile.name}">Some User</span>!</h3>
 		
-		<h4>Here are some my tweets retrieved:</h4>
+		<h4>Here are some my tweets:</h4>
 		
 		<ul>
-			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText()}">mytweet</li>
+			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText() + ' ' + mytweet.getRetweetCount() }"  >mytweet</li>
 		</ul>
 		
 		<h4>These are your friends:</h4>
@@ -18,10 +18,10 @@
 			<li th:each="friend:${friends}" th:text="${friend.name}">Friend</li>
 		</ul>
 		
-		<h4>Here are some tweets retrieved:</h4>
+		<h4>Here are tweets that were retweeted:</h4>
 		
 		<ul>
-			<li th:each="tweet:${tweets}" th:text="${tweet.getText()}">Friend</li>
+			<li th:each="tweet:${tweets}" th:text="${tweet.getText()} + ', Retweet count=' + ${tweet.getRetweetCount()}">Friend</li>
 		</ul>
 	</body>
 </html>

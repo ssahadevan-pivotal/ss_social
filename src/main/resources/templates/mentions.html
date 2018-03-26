@@ -7,7 +7,7 @@
 	  <!--  Header -->
 
 <div>
-         <ul id="nav">
+       <ul id="nav">
         <li><a href="/">Home</a></li>
         <li><a href="/favorites">Favorites</a></li>
         <li><a href="/mentions">Mentions</a></li>
@@ -19,28 +19,14 @@
 <br></br>
 
 	
-		<h3>Hello, <span th:text="${twitterProfile.name}">Some User</span>!</h3>
+	
 		
-		<h4>Here are some my tweets:</h4>
-	  
-	    <ul>
-			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText() + ', Retweet Count= ' + mytweet.getRetweetCount() }"  >mytweet</li>
-		</ul>
-		
-		
-		
-		<h4>These are your friends:</h4>
+		<h4>Here are some my mentions:</h4>
 		
 		<ul>
-			<li th:each="friend:${friends}" th:text="${friend.name}">Friend</li>
+			<li th:each="mention:${mentions}" th:text="${mention.getText() + ' ' + mention.getRetweetCount() }"  >mymention</li>
 		</ul>
 		
-		<h4>Here are tweets that were retweeted:</h4>
 		
-		<ul>
-			<li th:each="tweet:${tweets}" th:text="${tweet.getText()} + ', Retweet count=' + ${tweet.getRetweetCount()}">Friend</li>
-		</ul>
-		
-
 	</body>
 </html>

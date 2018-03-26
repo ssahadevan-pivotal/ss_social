@@ -31,6 +31,35 @@ public class HelloController {
         this.connectionRepository = connectionRepository;
        
     }
+    
+    @RequestMapping(method=RequestMethod.GET,path="/favorites")
+    public String favorites(Model model) {
+    
+
+        if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+            return "redirect:/connect/twitter";
+        }
+
+     
+        
+        // SS Code
+        List<Tweet> tweets = twitter.timelineOperations().getFavorites();
+        System.out.println("Tweets: "  + tweets.toString() );
+        Iterator itr = tweets.iterator();
+        while ( itr.hasNext() )
+        {
+        	Tweet tweet = (Tweet) itr.next();
+        	
+        	System.out.println( "Tweet Text is : " +  tweet.getText() 
+        			             + " by user : "   +  tweet.getFromUser()
+        			             + " user Profile : " + tweet.getUser()
+        			);
+          
+        }
+        model.addAttribute("favorites", tweets);
+       
+        return "favorites";
+    }
 
     @RequestMapping(method=RequestMethod.GET)
     public String helloTwitter(Model model) {
@@ -72,8 +101,41 @@ public class HelloController {
         			);
         }
         model.addAttribute("mytweets", mytweets);
+        
+          
     
         return "hello";
     }
+    
+    // @date - March 26, 2018
+    @RequestMapping(method=RequestMethod.GET,path="/mentions")
+    public String mentions(Model model) {
+    
+
+        if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+            return "redirect:/connect/twitter";
+        }
+
+     
+        
+        // SS Code
+        List<Tweet> tweets = twitter.timelineOperations().getMentions();
+        System.out.println("Tweets: "  + tweets.toString() );
+        Iterator itr = tweets.iterator();
+        while ( itr.hasNext() )
+        {
+        	Tweet tweet = (Tweet) itr.next();
+        	
+        	System.out.println( "Tweet Text is : " +  tweet.getText() 
+        			             + " by user : "   +  tweet.getFromUser()
+        			             + " user Profile : " + tweet.getUser()
+        			);
+          
+        }
+        model.addAttribute("mentions", tweets);
+       
+        return "mentions";
+    }
+
 
 }

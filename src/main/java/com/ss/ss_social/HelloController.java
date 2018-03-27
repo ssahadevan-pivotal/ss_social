@@ -6,7 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.twitter.api.AccountSettings.TrendLocation;
 import org.springframework.social.twitter.api.CursoredList;
+import org.springframework.social.twitter.api.Trend;
+import org.springframework.social.twitter.api.Trends;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
@@ -137,5 +140,48 @@ public class HelloController {
         return "mentions";
     }
 
+    
+    @RequestMapping(method=RequestMethod.GET,path="/trends")
+    public String trends(Model model) {
+    
+
+        if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+            return "redirect:/connect/twitter";
+        }
+
+     
+        
+        // SS Code
+        List<TrendLocation> trendLocations = twitter.userOperations().getAccountSettings().getTrendLocation();
+        System.out.println("trendLocations: "  + trendLocations.toString() );
+        Iterator itr = trendLocations.iterator();
+        Trends trends=null ;
+        List<Trend> myTrends=null;
+       
+        while ( itr.hasNext() )
+        {
+        	TrendLocation trendLocation = (TrendLocation) itr.next();
+        	
+        	System.out.println( "Country is : " +  trendLocation.getCountry() 
+        			             + " Where On Earth Id : "   +  trendLocation.getWhereOnEarthID()
+        			        
+        			);
+        	trends=  twitter.searchOperations().getLocalTrends( trendLocation.getWhereOnEarthID() );
+        	
+        	myTrends = trends.getTrends();
+        	Iterator itr1 = myTrends.iterator();
+        	while ( itr1.hasNext() ){
+        		Trend trend = ( Trend ) itr1.next();
+        		System.out.println(" Trend is " + trend.getName() );
+        		
+        	}
+        }
+        
+        
+       model.addAttribute("trends", myTrends);
+       
+        return "trends";
+    }
+  
 
 }

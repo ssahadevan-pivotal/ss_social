@@ -1,11 +1,14 @@
+<html>
+	<head>
+	    <link type="text/css" rel="stylesheet" href="css/main.css" />
+		<title>Hello Twitter</title>
+	</head>
+	<body>
+	  <!--  Header -->
 
- <!DOCTYPE html>
-
-<html xmlns:th="http://www.thymeleaf.org">
-
-  <body>
+  <div th:insert="header :: navigation"></div>
   
- <div th:fragment="navigation">    
+  <div th:fragment="navigation">    
       <!--  Header -->
        <ul id="nav">
         <li><a href="/">Home</a></li>
@@ -16,8 +19,18 @@
         <li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script></li>
         </ul>
  </div>
-        
-  
-  </body>
-  
+ 
+<br></br>
+
+	
+	
+		
+		<h4>Here are some top trends:</h4>
+		
+		<ul>
+			<li th:each="trend:${trends}" th:text="${trend.getName()  }"  >mytrend</li>
+		</ul>
+		
+		
+	</body>
 </html>

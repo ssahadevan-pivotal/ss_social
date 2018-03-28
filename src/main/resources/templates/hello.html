@@ -24,7 +24,7 @@
 		<h4>Here are some my tweets:</h4>
 	  
 	    <ul>
-			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText() + ', Retweet Count= ' + mytweet.getRetweetCount() }"  >mytweet</li>
+			<li th:each="mytweet:${mytweets}" th:text="${mytweet.getText() + ', Retweet Count= ' + mytweet.getRetweetCount()  + ', Favorite count= ' + mytweet.getFavoriteCount() }"  >mytweet</li>
 		</ul>
 		
 		
